@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products - Damodar Traders</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+  <link rel="stylesheet" href="style1.css">
+  <style>
+    /* Product Page Styles */
+    .product-page {
+      padding: 50px 5%;
+      background: #f9f9f9;
+      min-height: 100vh;
+    }
+    
+    .product-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .product-header h1 {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    
+    .product-header p {
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .category-filters {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .category-btn {
+      padding: 8px 20px;
+      background: #f0f0f0;
+      color: #333;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 500;
+    }
+    
+    .category-btn.active, .category-btn:hover {
+      background: #2a5f8a;
+      color: white;
+    }
+    
+    .product-count {
+      margin-left: 10px;
+      background: rgba(255,255,255,0.2);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+    }
+    
+    .medias {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
+    
+    .media {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .media:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    
+    .media-img {
+      height: 200px;
+      overflow: hidden;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .media-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.5s;
+    }
+    
+    .media:hover .media-img img {
+      transform: scale(1.05);
+    }
+    
+    .media-content {
+      padding: 20px;
+    }
+    
+    .media-content h3 {
+      margin: 0 0 10px;
+      color: #222;
+      font-size: 1.2rem;
+    }
+    
+    .media-content p {
+      color: #666;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+    }
+    
+    .media-category {
+      display: inline-block;
+      background: #f0f0f0;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #555;
+      margin-bottom: 15px;
+    }
+    
+    .media-price {
+      font-weight: bold;
+      color: #2a5f8a;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+    
+    .view-details {
+      display: inline-block;
+      padding: 8px 20px;
+      background: #2a5f8a;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.3s;
+      font-size: 0.9rem;
+    }
+    
+    .view-details:hover {
+      background: #1d4567;
+    }
+    
+    .no-products {
+      text-align: center;
+      grid-column: 1 / -1;
+      padding: 40px;
+      color: #666;
+    }
+
+    .default-img {
+      width: 80px;
+      height: 80px;
+      opacity: 0.3;
+    }
+    
+    .loading-spinner {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px;
+    }
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border-top: 4px solid #2a5f8a;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="index.html">
+      <img src="./Create_a_logo_concep-removebg-preview.png" alt="Damodar Traders Logo">
+    </a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li class="nav-product">
+        <a href="categories.html">Product</a>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M18.2197 8.546L12.2531 14.5126C12.1555 14.6102 11.9972 14.6102 11.8996 14.5126L6.02767 8.64067C5.73477 8.34778 5.2599 8.34778 4.96701 8.64067C4.67411 8.93357 4.67411 9.40844 4.96701 9.70133L10.8389 15.5732C11.5223 16.2566 12.6304 16.2566 13.3138 15.5732L19.2803 9.60666C19.5732 9.31377 19.5732 8.8389 19.2803 8.546C18.9874 8.25311 18.5126 8.25311 18.2197 8.546Z"
+            fill="currentColor"></path>
+        </svg>
+        <div class="product-dropdown">
+          <a href="categories.html">All Categories</a>
+          <a href="categories.html?category=pipes">Pipes</a>
+          <a href="categories.html?category=fittings">Fittings</a>
+          <a href="categories.html?category=valves">Valves</a>
+          <a href="categories.html?category=other">Other Products</a>
+        </div>
+      </li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact us</a></li>
+    </ul>
+    <div class="btn">
+      <button class="btn1" onclick="window.location.href='login.html'">Log in</button>
+    </div>
+  </nav>
+
+  <hr class="line">
+
+  <div class="main">
+    <div class="product-page">
+      <div class="product-header">
+        <h1>Our Products</h1>
+        <p>Browse our comprehensive range of high-quality pipe fittings and plumbing solutions. Filter by category to find exactly what you need.</p>
+      </div>
+
+      <div class="category-filters" id="categoryFilters">
+        <button class="category-btn active" data-category="all">All Products</button>
+        <button class="category-btn" data-category="pipes">Pipes</button>
+        <button class="category-btn" data-category="fittings">Fittings</button>
+        <button class="category-btn" data-category="valves">Valves</button>
+        <button class="category-btn" data-category="other">Other Products</button>
+      </div>
+
+      <div class="medias" id="mediaContainer">
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+          <p>Loading products...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const API_BASE_URL = 'http://localhost:3000/api'; // Replace with your actual API endpoint
+      let allProducts = [];
+      
+      // Get category from URL parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const categoryParam = urlParams.get('category');
+      
+      // Set active filter based on URL
+      if (categoryParam) {
+        document.querySelectorAll('.category-btn').forEach(btn => {
+          btn.classList.remove('active');
+          if (btn.dataset.category === categoryParam) {
+            btn.classList.add('active');
+          }
+        });
+      }
+      
+      // Load products from API
+      async function loadProducts() {
+        try {
+          const response = await fetch(`${API_BASE_URL}/products`);
+          if (!response.ok) throw new Error('Failed to fetch products');
+          
+          allProducts = await response.json();
+          
+          // Store products in localStorage as fallback
+          const productDetails = {};
+          allProducts.forEach(product => {
+            productDetails[product.id] = product;
+          });
+          localStorage.setItem('productDetails', JSON.stringify(productDetails));
+          
+          updateFilterCounts();
+          filterProducts(categoryParam || 'all');
+          
+          // Add animation to product cards
+          gsap.from(".media", {
+            duration: 0.8,
+            y: 50,
+            opacity: 0,
+            stagger: 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: ".medias",
+              start: "top 80%",
+              toggleActions: "play none none none"
+            }
+          });
+        } catch (error) {
+          console.error('Error loading products:', error);
+          // Fallback to localStorage if API fails
+          const productDetails = JSON.parse(localStorage.getItem('productDetails')) || {};
+          allProducts = Object.values(productDetails);
+          
+          if (allProducts.length > 0) {
+            updateFilterCounts();
+            filterProducts(categoryParam || 'all');
+          } else {
+            document.getElementById('mediaContainer').innerHTML = `
+              <div class="no-products">
+                <p>Failed to load products. Please try again later.</p>
+              </div>
+            `;
+          }
+        }
+      }
+      
+      // Update filter counts
+      function updateFilterCounts() {
+        document.querySelectorAll('.category-btn').forEach(btn => {
+          const category = btn.dataset.category;
+          if (category === 'all') {
+            const count = allProducts.length;
+            btn.innerHTML = `All Products <span class="product-count">${count}</span>`;
+          } else {
+            const count = allProducts.filter(p => p.category === category).length;
+            btn.innerHTML = `${category.charAt(0).toUpperCase() + category.slice(1)} <span class="product-count">${count}</span>`;
+          }
+        });
+      }
+      
+      // Filter products function
+      function filterProducts(category) {
+        const mediaContainer = document.getElementById('mediaContainer');
+        mediaContainer.innerHTML = '';
+        
+        let filteredProducts = allProducts;
+        if (category && category !== 'all') {
+          filteredProducts = allProducts.filter(p => p.category === category);
+        }
+        
+        if (filteredProducts.length === 0) {
+          mediaContainer.innerHTML = '<div class="no-products">No products found in this category</div>';
+          return;
+        }
+        
+        filteredProducts.forEach(product => {
+          const media = document.createElement('div');
+          media.className = 'media';
+          
+          // Handle image source
+          let imgHtml = '';
+          if (product.image) {
+            imgHtml = `<img src="${product.image}" alt="${product.name}" 
+                      onerror="this.onerror=null;this.src='';this.parentElement.innerHTML='<svg class=\"default-img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"></rect><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"></circle><polyline points=\"21 15 16 10 5 21\"></polyline></svg>';">`;
+          } else {
+            imgHtml = `<svg class="default-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <circle cx="8.5" cy="8.5" r="1.5"></circle>
+              <polyline points="21 15 16 10 5 21"></polyline>
+            </svg>`;
+          }
+          
+          // Get the lowest price if there are size options
+          let displayPrice = 'NA';
+          if (product.price) {
+            displayPrice = product.price.toFixed(2);
+          } else if (product.sizeOptions && product.sizeOptions.length > 0) {
+            const prices = product.sizeOptions.map(opt => opt.price).filter(p => p);
+            if (prices.length > 0) {
+              const minPrice = Math.min(...prices);
+              displayPrice = `From ₹${minPrice.toFixed(2)}`;
+            }
+          }
+          
+          media.innerHTML = `
+            <div class="media-img">
+              ${imgHtml}
+            </div>
+            <div class="media-content">
+              <span class="media-category">${product.category || 'Uncategorized'}</span>
+              <h3>${product.name || 'Unnamed Product'}</h3>
+              <p>${product.shortDescription || product.description || 'No description available'}</p>
+              <div class="media-price">₹${displayPrice}</div>
+              <a href="product-details.html?id=${product.id}" class="view-details">View Details</a>
+            </div>
+          `;
+          
+          // Add click handler to the view details button
+          const viewDetailsBtn = media.querySelector('.view-details');
+          viewDetailsBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = `product-details.html?id=${product.id}`;
+          });
+          
+          mediaContainer.appendChild(media);
+        });
+      }
+      
+      // Add click handlers to filter buttons
+      document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          filterProducts(this.dataset.category);
+          
+          // Update URL without reloading
+          const url = new URL(window.location);
+          if (this.dataset.category === 'all') {
+            url.searchParams.delete('category');
+          } else {
+            url.searchParams.set('category', this.dataset.category);
+          }
+          window.history.pushState({}, '', url);
+        });
+      });
+      
+      // Initial load
+      loadProducts();
+    });
+  </script>
+</body>
+</html>
