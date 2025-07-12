@@ -21,7 +21,7 @@ const client = new MongoClient(uri, {
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://127.0.0.1:5500'],
+  origin: ['https://686fdbf5c817f20ef495d5ac--charming-gumption-ebc6bd.netlify.app/'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
