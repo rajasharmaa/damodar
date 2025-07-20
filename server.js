@@ -7,7 +7,7 @@ const path = require('path');
 const fs = require('fs');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || https://686fdbf5c817f20ef495d5ac--charming-gumption-ebc6bd.netlify.app;
 
 // MongoDB Atlas connection
 const uri = process.env.MONGODB_URI || "mongodb+srv://rajat:rajat888@cluster0.psa8nvb.mongodb.net/damodarTraders?retryWrites=true&w=majority";
